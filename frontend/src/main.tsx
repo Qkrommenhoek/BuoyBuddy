@@ -16,14 +16,25 @@ function Root() {
     setToken(null)
   }
 
+  function handleLogout() {
+    clearStoredToken()
+    setToken(null)
+  }
+
   return(
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login onLogin={setToken} />} />
-        <Route path="/register" element={<Register onRegister={setToken} />} />
+      <Route path="/login" element={token ? <Navigate to="/" /> : <Login onLogin={setToken} />} />
+      <Route path="/register" element={token ? <Navigate to="/" /> : <Register onRegister={setToken} />} />
         <Route
           path="/*"
-          element={token ? <App token={token} onAuthError={handleAuthError} /> : <Navigate to="/login" />}
+          element={
+            token ? (
+              <App token={token} onAuthError={handleAuthError} onLogout={handleLogout} />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
       </Routes>
     </BrowserRouter>
