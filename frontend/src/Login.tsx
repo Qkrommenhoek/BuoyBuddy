@@ -15,7 +15,7 @@ function Login({ onLogin }: { onLogin: (token: string) => void }){
             body: JSON.stringify({ username, password }),
         });
         if(!res.ok) {
-            console.log('response failed for login[q]')
+            console.log('response failed for login', res.statusText)
             return;
         }
         const token = await res.text()
