@@ -10,4 +10,7 @@ class BuoyReadingService(
 ) {
     fun getBuoyReadingsByUserId(userId: Long): List<BuoyReading> =
         buoyReadingRepository.findByIdUserId(userId)
+    
+    fun saveBuoyReading(buoyReading: BuoyReading): BuoyReading =
+        buoyReadingRepository.save(buoyReading)
 }
