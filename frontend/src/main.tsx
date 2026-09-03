@@ -19,11 +19,11 @@ function Root() {
   return(
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login onLogin={setToken} />} />
-        <Route path="/register" element={<Register onRegister={setToken} />} />
+        <Route path="/login" element={token ? <Navigate to="/" replace /> : <Login onLogin={setToken} />} />
+        <Route path="/register" element={token ? <Navigate to="/" replace /> : <Register onRegister={setToken} />} />
         <Route
           path="/*"
-          element={token ? <App token={token} onAuthError={handleAuthError} /> : <Navigate to="/login" />}
+          element={token ? <App token={token} onAuthError={handleAuthError} /> : <Navigate to="/login" replace />}
         />
       </Routes>
     </BrowserRouter>
