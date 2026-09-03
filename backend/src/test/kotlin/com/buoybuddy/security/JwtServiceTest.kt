@@ -12,22 +12,22 @@ class JwtServiceTest {
 
     @Test
     fun `generated token round-trips to the same username`() {
-        val token = jwtService.generateToken("quinn")
+        val token = jwtService.generateToken("TestUser")
 
-        assertEquals("quinn", jwtService.extractUsername(token))
+        assertEquals("TestUser", jwtService.extractUsername(token))
     }
 
     @Test
     fun `validateToken succeeds for the matching, unexpired user`() {
-        val token = jwtService.generateToken("quinn")
-        val userDetails = SpringUser("quinn", "irrelevant", emptyList())
+        val token = jwtService.generateToken("TestUser")
+        val userDetails = SpringUser("TestUser", "irrelevant", emptyList())
 
         assertTrue(jwtService.validateToken(token, userDetails))
     }
 
     @Test
     fun `validateToken fails when the username does not match the token subject`() {
-        val token = jwtService.generateToken("quinn")
+        val token = jwtService.generateToken("TestUser")
         val otherUser = SpringUser("someone-else", "irrelevant", emptyList())
 
         assertFalse(jwtService.validateToken(token, otherUser))
