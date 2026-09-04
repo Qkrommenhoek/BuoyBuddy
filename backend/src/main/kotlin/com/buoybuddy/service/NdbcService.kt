@@ -1,12 +1,14 @@
 package com.buoybuddy.service
 
 import com.buoybuddy.dto.NdbcRealtimeData
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestClient
 import org.springframework.web.client.RestClientException
 
 @Service
 class NdbcService(
+    @Qualifier("ndbcRestClient")
     private val ndbcRestClient: RestClient,
 ) {
     fun fetchRealtime2(stationId: String): String =
